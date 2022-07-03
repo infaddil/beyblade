@@ -1,0 +1,10 @@
+1	Abyss Devolos	    F0647		Balance	    NA	    SpeedStorm
+2	Ace Dragon		    E7609		Attack	    NA	    HyperSphere
+3	Anubion A2		    E1057		Defense	    NA	    DualLayer
+4	Balar B4		    E4726		Attack	    NA	    SlingShock
+5	Crystal Dranzer	    F0217		Balance	    NA	    Burst
+6	Cyclone Belfyre	    F3965		Stamina	    Attack	QuadDrive
+7	DarkX Nepstrius     E4749		Defense	    NA	    SlingShock
+8	Diomedes D2		    E1062		Attack	    NA	    DualLayer
+9	Doom scizor		    E1033		Attack	    NA	    SwitchStrike
+10	Vatryek WingAccel	B9492	    Attack	    NA	    Burst
