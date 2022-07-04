@@ -3,6 +3,7 @@
 #include <string>
 #include <cstdlib>
 #include <ctime>
+#include <iomanip>
 using namespace std;
 
 int findwords()
@@ -85,7 +86,7 @@ int deleteElement(int arr[],string name[],string s2[],string s3[],string s4[],st
 	return n;
 }
 
-int type(string s4, string s3)
+float type(string s4, string s3)
 {
 	float marks;
 	if(s4 == "Attack")
@@ -100,72 +101,25 @@ int type(string s4, string s3)
 	return marks;
 }
 
-float system(string s5)
+int main()
 {
-	float marks2;
-	if (s5 == "QuadDrive")
-		marks2 = 6;
-	else if (s5 == "HyperSphere")
-		marks2 = 5;
-	else if (s5 == "SpeedStorm")
-		marks2 = 4;
-	else if (s5 == "Burst")
-		marks2 = 3;
-	else if (s5 == "SwitchStrike")
-		marks2 = 2;
-	else if (s5 == "DualLayer")
-		marks2 = 1;
-	else if (s5 == "SlingShock")
-		marks2 = 0.5;
-		
-	return marks2;
-}
-
-void writeToFile(ofstream &outputfile, string name, string s2, string s3, string s4, string s5)
-{	
-	outputfile << "HI" << endl;
-	
-	outputfile << endl << endl << "The card that you get is: " << name<<" "<<s2<<" "<<s3<<" "<<s4<<" "<<s5<<endl <<endl;	
-}
-
-void Winner(float total1, float total2,int i)
-{
-				
-				    if (total1 > total2)
-					{
-						
-						cout << "player 1 wins";
-						cout << endl << total1 << " " << total2;
-					}
-					else
-					{
-						cout << endl << total1 << " " << total2;
-						cout << "player 2 wins";
-					}
-}
-
-
-
-int main ()
-{
-	string on="yes", player1_name, player2_name;
-	float total3, total4;
-	
+	string player1_name, player2_name, beyblade_name, product_code, type, plus_mode, system;
+	int cards = 10, player_turn;
+	char repeat;
 	cout << "--------------------------------------------------------------------------" << endl;
 	cout << "--                      Welcome to the beyblade game!                   --" << endl;
 	cout << "--------------------------------------------------------------------------" << endl << endl;
 	
-	cout << "Player 1, please enter your name: ";
+	//getting player 1's and player 2's names
+	cout << "Please enter your name." << endl << "Player 1: ";
 	getline(cin, player1_name);
-	cout << endl << "Player 2, please enter your name: ";
+	cout << "Player 2: ";
 	getline(cin, player2_name);
-	
-	cout << endl << "**************************************************************************"<<endl;
-	cout << "**                            Game has started!                         **" << endl << endl;
-	
-    while(on!="NO"||on!="no")
-    {
-		int count=0;
+	cout << "\n*******************************************************************************************************************\n";
+	do
+	{
+		int count=0, round, turn, player_turn, k, cards = 10, n, marks, marks2;
+		float total_marks1, total_marks2, total1, total2;
 		count=findwords();
 		int *sr;  sr= new int[count];
 		string *name;  name= new string[count];
@@ -175,145 +129,47 @@ int main ()
 		string *s5 ;  s5 = new string[count];
 		string *s6 ;  s6 = new string[count];
 		read_data(sr,name,s2,s3,s4,s5);
-	    
-	    int k = count;
-	    int check=1,r=1;
-	    
-    	for(int i=1;i<count;i++)
-    	{
-	        int n;
-	        if(k==11)
-	        {
-	            cout<<"                              This is round 1." << endl << endl;    
-	        }
-	         if(k==9)
-	        {
-	            cout<< endl <<"                              This is round 2." << endl << endl;    
-	        }
-	           if(k==7)
-	        {
-	            cout<< endl <<"                              This is round 3." << endl << endl;    
-	        }
-	              if(k==5)
-	        {
-	            cout<< endl <<"                              This is round 4." << endl << endl;    
-	        }
-	             if(k==3)
-	        {
-	            cout<< endl << "                              This is round 5." << endl << endl;    
-	        }
-	        
-        	if(check==1)
-        	{
-            	if(i==9)
-            	{
-            		cout<< player1_name << ", Do you want to take the last card? Press any number only if yes: "; 
-            	}
-             	else
-            	{
-          			cout<<player1_name << ", do you want to pick a card? Press any number only if yes: ";    
-            	}
-           	check=2;
-        	}
-        	
-			else
-        	{ 
-         	if(i==9)
-            {
-            	cout<<player2_name <<", Do you want to take the last card? Press any number only if yes: "; 
-            }
-            else
-            {
-          		cout<<endl <<player2_name << ", do you want to pick a card? Press any number only if yes: ";  
-            }
-           	check=1;  
-        	}
-        	
-        	cin>>n;
-        	
-		    ran:
-			int randomnumber=random_number();
+		
+		cout << "\n" << setfill ('-') << setw(50) << "This is round " << 1 << "------------------------------------"<< endl;
+		
+		
+		
+		for (round = 2; round <= 6; round++)
+		{
+			for (turn = 1; turn <= 2; turn++)
+			{
+				int randomnumber=random_number();
 			randomnumber=randomnumber-1;
-    
-		    if(sr[randomnumber] !=-1)
-		    {
-		    	//cout<<"* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"<<endl;
-		    	cout << endl << endl << "The card that you get is: " << name[randomnumber]<<" "<<s2[randomnumber]<<" "<<s3[randomnumber]<<" "<<s4[randomnumber]<<" "<<s5[randomnumber]<<endl <<endl;
-		          //cout<<sr[randomnumber]<<"\t\t"<<name[randomnumber]<<"\t\t"<<s2[randomnumber]<<"\t\t"<<s3[randomnumber]<<"\t\t"<<s4[randomnumber]<<"\t\t"<<s5[randomnumber]<<endl;
-		        cout << "Your mark is " << type(s4[randomnumber], s3[randomnumber]) << endl;
-		        cout << "Your mark is " << system(s5[randomnumber]);
-		        
-		        float total1 = 0, total2 = 0, marks1, marks2, largest, ptr, a, b;
-				total1 = type(s4[randomnumber], s3[randomnumber])+system(s5[randomnumber]);
-				total2 =type(s4[randomnumber], s3[randomnumber])+system(s5[randomnumber]);
-				
-				if (i == 1 || i == 3 || i == 5 || i == 7 || i == 9)
-					{
-				    cout << endl << "Your mark for this round is " << total1;
-					}
-				
-				if (i == 2 || i == 4 || i == 6 || i == 8 || i == 10)
-					{
-				    cout << endl << "Your mark for this round is " << total2;
-					}
-				
-				if (i == 2 || i == 4 || i == 6 || i == 8 || i == 10)
+			if(sr[randomnumber] !=-1)
 				{
-					if (total1 > total2)
-					{
-					cout << "player 1 wins";
-					cout << endl << "Total 1: " << total1 << " while total 2: " << total2;
-					}
-					else
-					{
-					cout << endl << "player 2 wins";
-					cout << endl << "Total 1: " << total1 << " while total 2: " << total2;
-					}
+				
+				cout << endl << "Player " << turn << ", ";
+				
+				for (k = 2; k <= 2; k++)
+				{
+					cout << "the card has shuffled randomly. Enter any number if you want to pick a card: ";
+					cin >> player_turn;
 					
+					cout  << endl << "The card that you get is: " << name[randomnumber]<<" "<<s2[randomnumber]<<" "<<s3[randomnumber]<<" "<<s4[randomnumber]<<" "<<s5[randomnumber]<<endl <<endl;
+					cout << "Your mark is " << type(s4[randomnumber], s3[randomnumber]) << endl;
+					cards--;
+		        
 				}
-//				if (total1 > total2)
-//				{
-//					cout << "player 1 wins";
-//				}
-//				else
-					//cout << "player 2 wins";
+		}	}
+			if (round != 6)
+			{
+				cout << "\n" << setfill ('-') << setw(50) << "Total score from round 1 to round " << round-1 << "------------------------------------\n"<< endl;
+				cout << "     " << player1_name << ", the player 1 scored "<< total_marks1<<" for now." <<endl;
+				cout << "     " << player2_name << ", the player 2 scored "<< total_marks2<< " for now." << endl<< endl <<endl<<endl<<endl;
+				cout << "\n" << setfill ('-') << setw(50) << "This is round " << round << "------------------------------------"<< endl;
+			}
 				
-				//Winner(total1,total2,i);	
-				
-				sr[randomnumber] =-1;
-		        
-//		        cout << "\nThe winner mark is "<<largest;
-		        
-		        cout<<endl << endl << "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"<<endl;
-		        
-		    }
-		    
-		    else
-		    {
-//		        cout << largest;
-		        ofstream outputfile;
-			    outputfile.open("program3data.txt");
-			    for(i=1; i<10; i++)
-			    {
-			    	writeToFile(outputfile, name[randomnumber],s2[randomnumber],s3[randomnumber],s4[randomnumber],s5[randomnumber]);
-			    	outputfile.close();
-				}
-			        
-		    	goto ran;    
-		    }
-		    k=k-1;
-		    }
-    
-		    cout<<"Do you want to play again ?";
-		    cin>>on;
-		    
-		    if(on=="no"|| on=="NO")
-		    {
-		    	exit(0);   
-		    }
-    
-    }
-    
+			else
+			{
+				//ask if the user want to play again or not
+				cout << "\n\n\n\n\nDo you want to play again? Press y if yes, press other keys to terminate.\n";
+				cin >> repeat;
+			}
+	}
+} while (repeat == 'y' || repeat == 'Y'); //if the user say yes, it will restart the game
 }
-
-
