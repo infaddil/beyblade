@@ -101,9 +101,30 @@ float type(string s4, string s3)
 	return marks;
 }
 
+float system(string s5)
+{
+	float marks2;
+	if (s5 == "QuadDrive")
+		marks2 = 6;
+	else if (s5 == "HyperSphere")
+		marks2 = 5;
+	else if (s5 == "SpeedStorm")
+		marks2 = 4;
+	else if (s5 == "Burst")
+		marks2 = 3;
+	else if (s5 == "SwitchStrike")
+		marks2 = 2;
+	else if (s5 == "DualLayer")
+		marks2 = 1;
+	else if (s5 == "SlingShock")
+		marks2 = 0.5;
+		
+	return marks2;
+}
+
 int main()
 {
-	string player1_name, player2_name, beyblade_name, product_code, type, plus_mode, system;
+	string player1_name, player2_name, beyblade_name, product_code, plus_mode, system;
 	int cards = 10, player_turn;
 	char repeat;
 	cout << "--------------------------------------------------------------------------" << endl;
@@ -118,7 +139,7 @@ int main()
 	cout << "\n*******************************************************************************************************************\n";
 	do
 	{
-		int count=0, round, turn, player_turn, k, cards = 10, n, marks, marks2;
+		int count=0, round, turn, player_turn, k, cards = 10, n, marks, marks2, score_player1, score_player2, winTotal1=0, winTotal2=0;
 		float total_marks1, total_marks2, total1, total2;
 		count=findwords();
 		int *sr;  sr= new int[count];
@@ -151,16 +172,76 @@ int main()
 					cin >> player_turn;
 					
 					cout  << endl << "The card that you get is: " << name[randomnumber]<<" "<<s2[randomnumber]<<" "<<s3[randomnumber]<<" "<<s4[randomnumber]<<" "<<s5[randomnumber]<<endl <<endl;
-					cout << "Your mark is " << type(s4[randomnumber], s3[randomnumber]) << endl;
+					
+					
+					
+					cout << "Your mark is " << ::type(s4[randomnumber], s3[randomnumber]) << endl;
+					cout << "Your mark is " << ::system(s5[randomnumber]) << endl;
 					cards--;
-		        
+		        	
+				
+		        	if (turn == 1)
+						total1 =+ ::type(s4[randomnumber], s3[randomnumber]) + ::system(s5[randomnumber]);
+					else
+						total2 =+ ::type(s4[randomnumber], s3[randomnumber]) + ::system(s5[randomnumber]);
+						
+					if (total1 > total2)
+				{
+					score_player1 = 10;
+					score_player2 = 0;
+					winTotal1 = winTotal1 + 1;
+				}
+				else if (total1 < total2)
+				{
+					score_player2 = 10;
+					score_player1 = 0;
+					winTotal2 = winTotal2 + 1;
+				}
+				else if (total1 = total2)
+				{
+					score_player1 = 0;
+					score_player1 = 0;
+				}
 				}
 		}	}
+		
+			if (cards == 0)
+				{
+					cout << "Cards finished" << endl << endl;
+					//Show scores here
+					cout << "The score of player 1 is: " << score_player1 << " while player 2 is: " << score_player2 << endl;
+					//to compare the marks between 2 players and as well as to determine the winner
+					if (winTotal1 > winTotal2)
+					{
+						cout << "The winner is \n";
+						cout << "*******************************\n";
+						cout << "**    " << player1_name << ", the player 1.       **\n";
+						cout << "*******************************\n\n";
+						cout << player1_name << ", the player 1 beats player 2, " << player2_name  << endl;
+						cout << winTotal1 << winTotal2;
+					}
+						
+					else if (winTotal1 < winTotal2)
+					{
+						cout << "The winner is \n";
+						cout << "*******************************\n";
+						cout << "**    " << player2_name << ", the player 2.       **\n";
+						cout << "*******************************\n\n";
+						cout << player2_name << ", the player 2 beats player 1, " << player1_name << endl;
+						cout << winTotal1 << winTotal2;
+						
+					}
+					else
+						cout << "Both of the players are draw.";
+				}
 			if (round != 6)
 			{
 				cout << "\n" << setfill ('-') << setw(50) << "Total score from round 1 to round " << round-1 << "------------------------------------\n"<< endl;
-				cout << "     " << player1_name << ", the player 1 scored "<< total_marks1<<" for now." <<endl;
-				cout << "     " << player2_name << ", the player 2 scored "<< total_marks2<< " for now." << endl<< endl <<endl<<endl<<endl;
+				
+				
+				cout << "\t Player 1 score " << score_player1 << " player 2 score " << score_player2 << endl;
+				cout << "     " << player1_name << ", the player 1 scored "<< total1<<" for now." <<endl;
+				cout << "     " << player2_name << ", the player 2 scored "<< total2<< " for now." << endl<< endl <<endl<<endl<<endl;
 				cout << "\n" << setfill ('-') << setw(50) << "This is round " << round << "------------------------------------"<< endl;
 			}
 				
