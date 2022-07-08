@@ -51,7 +51,7 @@ void read_data(int* sr,string* name,string* s2,string* s3,string* s4,string* s5)
     }
 }
 
-void writeToFile(ofstream &outputfile, string name, string s2, string s3, string s4, string s5)
+void writeToFile(ofstream &outputfile, string &name, string &s2, string &s3, string &s4, string &s5)
 {	
 	outputfile << "HI" << endl;
 	
@@ -189,7 +189,10 @@ int main()
 			    {
 			        cout<<"* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"<<endl;
 			          cout<<sr[randomnumber]<<"\t\t"<<name[randomnumber]<<"\t\t"<<s2[randomnumber]<<"\t\t"<<s3[randomnumber]<<"\t\t"<<s4[randomnumber]<<"\t\t"<<s5[randomnumber]<<endl;
-			        sr[randomnumber] =-1;
+			        ofstream outputfile;
+			    	outputfile.open("program3data.txt");
+					writeToFile(outputfile, name[randomnumber],s2[randomnumber],s3[randomnumber],s4[randomnumber], s5[randomnumber]);
+					sr[randomnumber] =-1;
 			        cout<<"* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"<<endl;
 			  
 			    }
@@ -226,7 +229,7 @@ int main()
 				else
 					sumScore2 += score_player2;
 					
-				
+					
 			}
 		
 			if (cards == 0)
@@ -269,24 +272,8 @@ int main()
 				cout << "     " << player1_name << ", the player 1 scored "<< total1<<" for now." <<endl;
 				cout << "     " << player2_name << ", the player 2 scored "<< total2<< " for now." << endl<< endl <<endl<<endl<<endl;
 				cout << "\n" << setfill ('-') << setw(50) << "This is round " << round << "------------------------------------"<< endl;
-				{
-					ofstream outputfile;
-			    outputfile.open("program3data.txt");
-			    
-			    	int randomnumber=random_number();
-			    	count=findwords();
-					k=count;
-					int *sr;  sr= new int[count];
-					string *name;  name= new string[count];
-					string *s2;  s2= new string[count];  
-					string *s3;  s3= new string[count];
-					string *s4 ;  s4 = new string[count];
-					string *s5 ;  s5 = new string[count];
-					string *s6 ;  s6 = new string[count];
-			    	writeToFile(outputfile, name[randomnumber],s2[randomnumber],s3[randomnumber],s4[randomnumber],s5[randomnumber]);
-				}
 				
-				
+					
 			}
 				
 			else
