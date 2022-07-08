@@ -51,6 +51,15 @@ void read_data(int* sr,string* name,string* s2,string* s3,string* s4,string* s5)
     }
 }
 
+void writeToFile(ofstream &outputfile, string name, string s2, string s3, string s4, string s5)
+{	
+	outputfile << "HI" << endl;
+	
+	outputfile << endl << endl << "The card that you get is: " << name<<" "<<s2<<" "<<s3<<" "<<s4<<" "<<s5<<endl <<endl;	
+}
+		
+
+
 int random_number()
 {
    int random = 1 + (rand() % 10);
@@ -59,33 +68,34 @@ int random_number()
 
 int deleteElement(int arr[],string name[],string s2[],string s3[],string s4[],string s5[], int n, int x)
 {
-	// Search x in array
-	int i;
-	for (i=0; i<n; i++)
-	{
-		if (arr[i] == x)
+    //deleteElement(sr,name,s2,s3,s4,s5,count, i);
+// Search x in array
+int i;
+for (i=0; i<n; i++)
+{
+	if (arr[i] == x)
 		break;
-	}
-
-	// If x found in array
-	if (i < n)
-	{
-		// reduce size of array and move all
-		// elements on space ahead
-		n = n - 1;
-		for (int j=i; j<n; j++)
-		{
-			arr[j] = arr[j+1];
-			name[j] = name[j+1];
-			s2[j] = s2[j+1];
-			s3[j] = s3[j+1];
-			s4[j] = s4[j+1];
-			s5[j] = s5[j+1];
-		}
-	}
-	return n;
 }
 
+// If x found in array
+if (i < n)
+{
+	// reduce size of array and move all
+	// elements on space ahead
+	n = n - 1;
+	for (int j=i; j<n; j++)
+	{
+		arr[j] = arr[j+1];
+		name[j] = name[j+1];
+		s2[j] = s2[j+1];
+		s3[j] = s3[j+1];
+		s4[j] = s4[j+1];
+		s5[j] = s5[j+1];
+	}
+}
+
+return n;
+}
 float type(string s4, string s3)
 {
 	float marks;
@@ -122,11 +132,16 @@ float system(string s5)
 	return marks2;
 }
 
+
+
 int main()
 {
 	string player1_name, player2_name, beyblade_name, product_code, plus_mode, system;
-	int cards = 10, player_turn;
+	int cards;
+	
+	bool logic = false;
 	char repeat;
+	
 	cout << "--------------------------------------------------------------------------" << endl;
 	cout << "--                      Welcome to the beyblade game!                   --" << endl;
 	cout << "--------------------------------------------------------------------------" << endl << endl;
@@ -139,9 +154,10 @@ int main()
 	cout << "\n*******************************************************************************************************************\n";
 	do
 	{
-		int count=0, round, turn, player_turn, k, cards = 10, n, marks, marks2, score_player1, score_player2, winTotal1=0, winTotal2=0;
-		float total_marks1, total_marks2, total1, total2;
+		int count=0, round, turn, n, k, cards = 10, marks, marks2, score_player1 = 0, score_player2 = 0;
+		float total_marks1, total_marks2, total1, total2, sumScore =0, sumScore2 = 0;
 		count=findwords();
+		k=count;
 		int *sr;  sr= new int[count];
 		string *name;  name= new string[count];
 		string *s2;  s2= new string[count];  
@@ -152,50 +168,51 @@ int main()
 		read_data(sr,name,s2,s3,s4,s5);
 		
 		cout << "\n" << setfill ('-') << setw(50) << "This is round " << 1 << "------------------------------------"<< endl;
-		
-		
-		
 		for (round = 2; round <= 6; round++)
 		{
 			for (turn = 1; turn <= 2; turn++)
 			{
-				int randomnumber=random_number();
-			randomnumber=randomnumber-1;
-			if(sr[randomnumber] !=-1)
-				{
+			
 				
 				cout << endl << "Player " << turn << ", ";
-				
 				for (k = 2; k <= 2; k++)
 				{
+					
 					cout << "the card has shuffled randomly. Enter any number if you want to pick a card: ";
-					cin >> player_turn;
+					cin >> n;
 					
-					cout  << endl << "The card that you get is: " << name[randomnumber]<<" "<<s2[randomnumber]<<" "<<s3[randomnumber]<<" "<<s4[randomnumber]<<" "<<s5[randomnumber]<<endl <<endl;
-					
-					
-					
+					ran:
+			     int randomnumber=random_number();
+			     randomnumber=randomnumber-1;
+								
+								if(sr[randomnumber] !=-1)
+			    {
+			        cout<<"* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"<<endl;
+			          cout<<sr[randomnumber]<<"\t\t"<<name[randomnumber]<<"\t\t"<<s2[randomnumber]<<"\t\t"<<s3[randomnumber]<<"\t\t"<<s4[randomnumber]<<"\t\t"<<s5[randomnumber]<<endl;
+			        sr[randomnumber] =-1;
+			        cout<<"* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"<<endl;
+			  
+			    }
+			    else
+			    	goto ran;
 					cout << "Your mark is " << ::type(s4[randomnumber], s3[randomnumber]) << endl;
 					cout << "Your mark is " << ::system(s5[randomnumber]) << endl;
 					cards--;
 		        	
-				
 		        	if (turn == 1)
 						total1 =+ ::type(s4[randomnumber], s3[randomnumber]) + ::system(s5[randomnumber]);
 					else
 						total2 =+ ::type(s4[randomnumber], s3[randomnumber]) + ::system(s5[randomnumber]);
 						
-					if (total1 > total2)
+						if (total1 > total2)
 				{
 					score_player1 = 10;
 					score_player2 = 0;
-					winTotal1 = winTotal1 + 1;
 				}
 				else if (total1 < total2)
 				{
 					score_player2 = 10;
 					score_player1 = 0;
-					winTotal2 = winTotal2 + 1;
 				}
 				else if (total1 = total2)
 				{
@@ -203,33 +220,44 @@ int main()
 					score_player1 = 0;
 				}
 				}
-		}	}
+				
+				if (turn == 1)
+					sumScore += score_player1;
+				else
+					sumScore2 += score_player2;
+					
+				
+			}
 		
 			if (cards == 0)
 				{
 					cout << "Cards finished" << endl << endl;
-					//Show scores here
-					cout << "The score of player 1 is: " << score_player1 << " while player 2 is: " << score_player2 << endl;
+					
+					cout << "\n" << setfill ('-') << setw(50) << "Total score from round 1 to round " << round-1 << "------------------------------------\n"<< endl;
+				cout << "\t Player 1 score " << score_player1 << " player 2 score " << score_player2 << endl;
+				cout << "     " << player1_name << ", the player 1 scored "<< total1<<" for now." <<endl;
+				cout << "     " << player2_name << ", the player 2 scored "<< total2<< " for now." << endl<< endl <<endl<<endl<<endl;
+					
+					
 					//to compare the marks between 2 players and as well as to determine the winner
-					if (winTotal1 > winTotal2)
+					if (sumScore > sumScore2)
 					{
 						cout << "The winner is \n";
 						cout << "*******************************\n";
 						cout << "**    " << player1_name << ", the player 1.       **\n";
 						cout << "*******************************\n\n";
-						cout << player1_name << ", the player 1 beats player 2, " << player2_name  << endl;
-						cout << winTotal1 << winTotal2;
+						cout << player1_name << ", the player 1 beats player 2, " << score_player1 << player2_name  << endl;
 					}
 						
-					else if (winTotal1 < winTotal2)
+					else if (sumScore < sumScore2)
 					{
 						cout << "The winner is \n";
 						cout << "*******************************\n";
 						cout << "**    " << player2_name << ", the player 2.       **\n";
 						cout << "*******************************\n\n";
-						cout << player2_name << ", the player 2 beats player 1, " << player1_name << endl;
-						cout << winTotal1 << winTotal2;
-						
+						cout << player2_name << ", the player 2 beats player 1 by " << sumScore2-sumScore << endl;	
+						cout << "Player 2 score: " << sumScore2 << " while player 1 score: " << sumScore<<endl;
+									
 					}
 					else
 						cout << "Both of the players are draw.";
@@ -237,12 +265,28 @@ int main()
 			if (round != 6)
 			{
 				cout << "\n" << setfill ('-') << setw(50) << "Total score from round 1 to round " << round-1 << "------------------------------------\n"<< endl;
-				
-				
 				cout << "\t Player 1 score " << score_player1 << " player 2 score " << score_player2 << endl;
 				cout << "     " << player1_name << ", the player 1 scored "<< total1<<" for now." <<endl;
 				cout << "     " << player2_name << ", the player 2 scored "<< total2<< " for now." << endl<< endl <<endl<<endl<<endl;
 				cout << "\n" << setfill ('-') << setw(50) << "This is round " << round << "------------------------------------"<< endl;
+				{
+					ofstream outputfile;
+			    outputfile.open("program3data.txt");
+			    
+			    	int randomnumber=random_number();
+			    	count=findwords();
+					k=count;
+					int *sr;  sr= new int[count];
+					string *name;  name= new string[count];
+					string *s2;  s2= new string[count];  
+					string *s3;  s3= new string[count];
+					string *s4 ;  s4 = new string[count];
+					string *s5 ;  s5 = new string[count];
+					string *s6 ;  s6 = new string[count];
+			    	writeToFile(outputfile, name[randomnumber],s2[randomnumber],s3[randomnumber],s4[randomnumber],s5[randomnumber]);
+				}
+				
+				
 			}
 				
 			else
